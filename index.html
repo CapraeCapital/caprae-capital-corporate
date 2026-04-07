@@ -18,8 +18,8 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            color: #555555;
-            background-color: #FFFFFF;
+            color: #B0B0B0;
+            background-color: #0A0A0A;
             line-height: 1.6;
         }
 
@@ -30,13 +30,14 @@
             left: 0;
             right: 0;
             z-index: 1000;
-            background-color: #FFFFFF;
+            background-color: #0A0A0A;
             padding: 24px 0;
             transition: all 0.3s ease;
         }
 
         nav.scrolled {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            padding: 14px 0;
         }
 
         .nav-container {
@@ -53,16 +54,17 @@
             font-size: 18px;
             font-weight: 600;
             letter-spacing: 3px;
-            color: #1A1A1A;
+            color: #FFFFFF;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             text-decoration: none;
         }
 
-        .goat-icon {
-            width: 24px;
-            height: 24px;
+        .logo-img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
         }
 
         .nav-links {
@@ -73,7 +75,7 @@
 
         .nav-links a {
             text-decoration: none;
-            color: #1A1A1A;
+            color: #E0E0E0;
             font-size: 14px;
             font-weight: 500;
             letter-spacing: 0.5px;
@@ -88,30 +90,40 @@
             left: 0;
             width: 0;
             height: 2px;
-            background-color: #C5A55A;
+            background-color: #F9D360;
             transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:hover::after,
+        .nav-links a.active-section::after {
             width: 100%;
         }
 
         .hamburger {
             display: none;
-            flex-direction: column;
-            gap: 6px;
+            width: 28px;
+            height: 20px;
+            position: relative;
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .hamburger span {
+            position: absolute;
+            left: 2px;
             width: 24px;
             height: 2px;
-            background-color: #1A1A1A;
+            background-color: #E0E0E0;
             transition: all 0.3s ease;
         }
 
+        .hamburger span:nth-child(1) { top: 0; }
+        .hamburger span:nth-child(2) { top: 9px; }
+        .hamburger span:nth-child(3) { top: 18px; }
+
         .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
+            top: 9px;
+            transform: rotate(45deg);
         }
 
         .hamburger.active span:nth-child(2) {
@@ -119,7 +131,44 @@
         }
 
         .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(8px, -8px);
+            top: 9px;
+            transform: rotate(-45deg);
+        }
+
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .mobile-cta-item {
+            display: none;
+        }
+
+        /* HERO ENTRANCE ANIMATIONS */
+        .hero-enter {
+            opacity: 0;
+            transform: translateY(25px);
+            animation: heroReveal 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--hero-d, 0s) forwards;
+        }
+
+        @keyframes heroReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* HERO SECTION */
@@ -131,7 +180,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background-color: #FFFFFF;
+            background-color: #0A0A0A;
             padding: 60px 40px;
         }
 
@@ -139,10 +188,12 @@
             max-width: 900px;
         }
 
-        .goat-badge {
-            width: 60px;
-            height: 60px;
+        .hero-logo {
+            width: 72px;
+            height: 72px;
+            object-fit: contain;
             margin: 0 auto 40px;
+            display: block;
         }
 
         h1 {
@@ -150,30 +201,35 @@
             font-size: 72px;
             font-weight: 400;
             letter-spacing: 4px;
-            color: #1A1A1A;
+            color: #FFFFFF;
             margin-bottom: 24px;
             line-height: 1.2;
         }
 
         .hero-divider {
-            width: 60px;
+            width: 0;
             height: 2px;
-            background-color: #C5A55A;
+            background-color: #F9D360;
             margin: 32px auto;
+            animation: dividerExpand 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+        }
+
+        @keyframes dividerExpand {
+            to { width: 60px; }
         }
 
         .hero-subtitle {
             font-family: 'Cormorant Garamond', serif;
             font-size: 28px;
             font-weight: 400;
-            color: #1A1A1A;
+            color: #E0E0E0;
             margin-bottom: 32px;
             line-height: 1.4;
         }
 
         .hero-description {
             font-size: 16px;
-            color: #555555;
+            color: #B0B0B0;
             max-width: 700px;
             margin: 0 auto;
             line-height: 1.8;
@@ -181,12 +237,12 @@
 
         /* ABOUT SECTION */
         .about {
-            background-color: #FFFFFF;
+            background-color: #0A0A0A;
             padding: 120px 40px;
         }
 
         .mission-section {
-            background-color: #F8F7F4;
+            background-color: #141414;
             padding: 120px 40px;
             margin: 120px 0;
         }
@@ -204,7 +260,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 56px;
             font-weight: 400;
-            color: #1A1A1A;
+            color: #FFFFFF;
             margin-bottom: 32px;
             letter-spacing: 2px;
         }
@@ -212,7 +268,7 @@
         .mission-text {
             font-size: 16px;
             line-height: 1.8;
-            color: #555555;
+            color: #B0B0B0;
         }
 
         .stats-row {
@@ -230,21 +286,21 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 48px;
             font-weight: 600;
-            color: #C5A55A;
+            color: #F9D360;
             margin-bottom: 12px;
         }
 
         .stat-label {
             font-size: 13px;
             letter-spacing: 1px;
-            color: #1A1A1A;
+            color: #E0E0E0;
             text-transform: uppercase;
             font-weight: 500;
         }
 
         /* PORTFOLIO SECTION */
         .portfolio-section {
-            background-color: #FFFFFF;
+            background-color: #0A0A0A;
             padding: 120px 40px;
         }
 
@@ -259,7 +315,7 @@
 
         .section-subtitle {
             font-size: 16px;
-            color: #555555;
+            color: #B0B0B0;
             max-width: 600px;
         }
 
@@ -272,56 +328,47 @@
         }
 
         .company-card {
-            background-color: #FFFFFF;
-            border: 1px solid #E8E5E0;
+            background-color: #1A1A1A;
+            border: 1px solid #2A2A2A;
             padding: 32px;
-            border-top: 3px solid #C5A55A;
+            border-top: 3px solid #F9D360;
             transition: all 0.3s ease;
-            opacity: 0;
-            animation: fadeIn 0.6s ease forwards;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         .company-card:hover {
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 8px 24px rgba(249, 211, 96, 0.08);
             transform: translateY(-4px);
         }
 
-        .company-icon {
-            width: 40px;
-            height: 40px;
+        .company-logo {
+            width: 80px;
+            height: 48px;
+            object-fit: contain;
             margin-bottom: 20px;
-            opacity: 0.7;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 8px;
+            border-radius: 8px;
+            border: 1px solid #2A2A2A;
         }
 
         .company-name {
             font-family: 'Cormorant Garamond', serif;
             font-size: 18px;
             font-weight: 500;
-            color: #1A1A1A;
+            color: #FFFFFF;
             margin-bottom: 12px;
             line-height: 1.4;
         }
 
         .company-description {
             font-size: 14px;
-            color: #555555;
+            color: #B0B0B0;
             line-height: 1.6;
         }
 
         /* NEWS SECTION */
         .news-section {
-            background-color: #FFFFFF;
+            background-color: #0A0A0A;
             padding: 120px 40px;
         }
 
@@ -336,13 +383,13 @@
 
         .news-card {
             padding-bottom: 32px;
-            border-bottom: 1px solid #E8E5E0;
+            border-bottom: 1px solid #2A2A2A;
         }
 
         .news-date {
             font-size: 12px;
             letter-spacing: 1px;
-            color: #C5A55A;
+            color: #F9D360;
             text-transform: uppercase;
             margin-bottom: 12px;
             font-weight: 600;
@@ -352,21 +399,21 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 20px;
             font-weight: 500;
-            color: #1A1A1A;
+            color: #FFFFFF;
             margin-bottom: 12px;
             line-height: 1.4;
         }
 
         .news-excerpt {
             font-size: 14px;
-            color: #555555;
+            color: #B0B0B0;
             margin-bottom: 16px;
             line-height: 1.6;
         }
 
         .read-more {
             text-decoration: none;
-            color: #C5A55A;
+            color: #F9D360;
             font-size: 13px;
             font-weight: 600;
             letter-spacing: 0.5px;
@@ -378,20 +425,21 @@
 
         .read-more:hover {
             gap: 10px;
+            color: #FFFFFF;
         }
 
         .social-links {
             max-width: 1100px;
             margin: 80px auto 0;
             padding-top: 60px;
-            border-top: 1px solid #E8E5E0;
+            border-top: 1px solid #2A2A2A;
             display: flex;
             gap: 40px;
         }
 
         .social-links a {
             text-decoration: none;
-            color: #555555;
+            color: #B0B0B0;
             font-size: 14px;
             font-weight: 500;
             transition: color 0.3s ease;
@@ -401,12 +449,12 @@
         }
 
         .social-links a:hover {
-            color: #C5A55A;
+            color: #F9D360;
         }
 
         /* TEAM SECTION */
         .team-section {
-            background-color: #F8F7F4;
+            background-color: #141414;
             padding: 120px 40px;
         }
 
@@ -425,38 +473,31 @@
 
         .team-member {
             text-align: center;
-            opacity: 0;
-            animation: fadeIn 0.6s ease forwards;
         }
 
-        .member-initials {
-            width: 80px;
-            height: 80px;
-            border: 2px solid #C5A55A;
+        .member-photo {
+            width: 120px;
+            height: 120px;
+            border: 2px solid #F9D360;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            object-fit: cover;
+            object-position: center 20%;
             margin: 0 auto 24px;
-            background-color: #FFFFFF;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 32px;
-            font-weight: 600;
-            color: #C5A55A;
+            display: block;
         }
 
         .member-name {
             font-family: 'Cormorant Garamond', serif;
             font-size: 20px;
             font-weight: 500;
-            color: #1A1A1A;
+            color: #FFFFFF;
             margin-bottom: 8px;
         }
 
         .member-title {
             font-size: 13px;
             letter-spacing: 1px;
-            color: #C5A55A;
+            color: #F9D360;
             text-transform: uppercase;
             margin-bottom: 16px;
             font-weight: 600;
@@ -465,7 +506,7 @@
         .member-bio {
             font-size: 13px;
             line-height: 1.6;
-            color: #555555;
+            color: #B0B0B0;
         }
 
         .advisors-grid {
@@ -476,39 +517,50 @@
         }
 
         .advisor-card {
-            background-color: #FFFFFF;
+            background-color: #1A1A1A;
             padding: 24px;
-            border: 1px solid #E8E5E0;
-            border-top: 2px solid #C5A55A;
+            border: 1px solid #2A2A2A;
+            border-top: 2px solid #F9D360;
             text-align: center;
+        }
+
+        .advisor-photo {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 20%;
+            margin: 0 auto 12px;
+            display: block;
+            border: 1px solid #2A2A2A;
         }
 
         .advisor-name {
             font-family: 'Cormorant Garamond', serif;
             font-size: 16px;
             font-weight: 500;
-            color: #1A1A1A;
+            color: #FFFFFF;
             margin-bottom: 4px;
         }
 
         .advisor-role {
             font-size: 12px;
             letter-spacing: 0.5px;
-            color: #555555;
+            color: #B0B0B0;
         }
 
         .associates-row {
-            background-color: #FFFFFF;
+            background-color: #1A1A1A;
             padding: 32px;
-            border: 1px solid #E8E5E0;
-            border-top: 2px solid #C5A55A;
+            border: 1px solid #2A2A2A;
+            border-top: 2px solid #F9D360;
         }
 
         .associates-title {
             font-size: 13px;
             font-weight: 600;
             letter-spacing: 1px;
-            color: #1A1A1A;
+            color: #E0E0E0;
             text-transform: uppercase;
             margin-bottom: 16px;
         }
@@ -520,13 +572,25 @@
         }
 
         .associate {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-size: 13px;
-            color: #555555;
+            color: #B0B0B0;
+        }
+
+        .associate-photo {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center 20%;
+            border: 2px solid #F9D360;
         }
 
         /* CAREERS SECTION */
         .careers-section {
-            background-color: #FFFFFF;
+            background-color: #0A0A0A;
             padding: 120px 40px;
         }
 
@@ -543,7 +607,7 @@
         .careers-intro p {
             font-size: 15px;
             line-height: 1.8;
-            color: #555555;
+            color: #B0B0B0;
         }
 
         .positions-list {
@@ -551,30 +615,30 @@
         }
 
         .position-card {
-            background-color: #F8F7F4;
+            background-color: #1A1A1A;
             padding: 32px;
             margin-bottom: 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-left: 3px solid #C5A55A;
+            border-left: 3px solid #F9D360;
             transition: all 0.3s ease;
         }
 
         .position-card:hover {
-            background-color: #EFE9E0;
+            background-color: #252525;
         }
 
         .position-title {
             font-family: 'Cormorant Garamond', serif;
             font-size: 20px;
             font-weight: 500;
-            color: #1A1A1A;
+            color: #FFFFFF;
         }
 
         .apply-link {
             text-decoration: none;
-            color: #C5A55A;
+            color: #F9D360;
             font-size: 13px;
             font-weight: 600;
             letter-spacing: 0.5px;
@@ -587,43 +651,11 @@
 
         .apply-link:hover {
             gap: 10px;
-        }
-
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin: 80px 0;
-        }
-
-        .testimonial {
-            padding: 32px;
-            border-top: 2px solid #C5A55A;
-            text-align: center;
-        }
-
-        .testimonial-text {
-            font-size: 14px;
-            font-style: italic;
-            color: #555555;
-            margin-bottom: 20px;
-            line-height: 1.8;
-        }
-
-        .testimonial-author {
-            font-size: 13px;
-            font-weight: 600;
-            color: #1A1A1A;
-            margin-bottom: 4px;
-        }
-
-        .testimonial-school {
-            font-size: 12px;
-            color: #555555;
+            color: #FFFFFF;
         }
 
         .how-to-apply {
-            background-color: #F8F7F4;
+            background-color: #141414;
             padding: 60px 40px;
             margin-top: 80px;
         }
@@ -648,7 +680,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 48px;
             font-weight: 600;
-            color: #C5A55A;
+            color: #F9D360;
             margin-bottom: 16px;
         }
 
@@ -656,22 +688,23 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 18px;
             font-weight: 500;
-            color: #1A1A1A;
+            color: #FFFFFF;
             margin-bottom: 12px;
         }
 
         .step-description {
             font-size: 13px;
-            color: #555555;
+            color: #B0B0B0;
             line-height: 1.6;
         }
 
         /* FOOTER */
         footer {
-            background-color: #1B2A4A;
+            background-color: #0A0A0A;
             color: #FFFFFF;
             padding: 60px 40px;
             margin-top: 120px;
+            border-top: 1px solid #2A2A2A;
         }
 
         .footer-content {
@@ -689,6 +722,15 @@
             font-size: 16px;
             letter-spacing: 2px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-logo-img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
         }
 
         .footer-contact {
@@ -704,12 +746,7 @@
         }
 
         .footer-contact a:hover {
-            color: #C5A55A;
-        }
-
-        .footer-contact-separator {
-            color: #C5A55A;
-            margin: 0 8px;
+            color: #F9D360;
         }
 
         .footer-social {
@@ -725,7 +762,7 @@
         }
 
         .footer-social a:hover {
-            color: #C5A55A;
+            color: #F9D360;
         }
 
         .footer-bottom {
@@ -738,29 +775,76 @@
 
         /* MOBILE RESPONSIVE */
         @media (max-width: 768px) {
+            body.menu-open {
+                overflow: hidden;
+            }
+
             .hamburger {
                 display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .nav-links {
-                display: none;
                 position: absolute;
-                top: 60px;
+                top: 100%;
                 left: 0;
                 right: 0;
                 flex-direction: column;
                 gap: 0;
-                background-color: #FFFFFF;
-                padding: 24px;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                background-color: #1A1A1A;
+                padding: 0 40px;
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                            padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             }
 
             .nav-links.active {
-                display: flex;
+                max-height: 400px;
+                padding: 8px 40px 24px;
+            }
+
+            .nav-links li {
+                border-bottom: 1px solid #2A2A2A;
+            }
+
+            .nav-links li:last-child,
+            .nav-links li.mobile-cta-item {
+                border-bottom: none;
             }
 
             .nav-links a {
-                padding: 12px 0;
+                display: block;
+                padding: 16px 0;
+                font-size: 16px;
+            }
+
+            .nav-links a::after {
+                display: none;
+            }
+
+            .mobile-cta-item {
+                display: block;
+                padding-top: 8px;
+            }
+
+            .mobile-cta-item a {
+                display: block;
+                color: #111111 !important;
+                background: #F9D360;
+                text-align: center;
+                padding: 14px 0 !important;
+                border-radius: 4px;
+                font-weight: 600;
+                font-size: 15px;
+                transition: background 0.3s, color 0.3s;
+            }
+
+            .mobile-cta-item a:hover {
+                background: #FFFFFF;
+                color: #111111 !important;
             }
 
             h1 {
@@ -816,22 +900,47 @@
             .footer-social {
                 text-align: center;
             }
-
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
         }
 
-        /* INTERSECTION OBSERVER ANIMATIONS */
+        /* SCROLL REVEAL ANIMATIONS */
         .fade-in-element {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
         }
 
         .fade-in-element.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: none;
+        }
+
+        .fade-in-element.slide-left {
+            transform: translateX(-60px);
+        }
+
+        .fade-in-element.slide-right {
+            transform: translateX(60px);
+        }
+
+        .fade-in-element.scale-up {
+            transform: scale(0.92);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            .hero-enter {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+            .hero-divider {
+                width: 60px !important;
+            }
         }
     </style>
 </head>
@@ -840,15 +949,15 @@
     <nav id="navbar">
         <div class="nav-container">
             <a href="#" class="logo">
-                <svg class="goat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 2c1 0 2 1 2 2v2h2c1 0 2 1 2 2v2h-2v2h2v2h-2v2h2c1 0 2 1 2 2v2c0 1-1 2-2 2h-2v2c0 1-1 2-2 2s-2-1-2-2v-2h-2v2c0 1-1 2-2 2s-2-1-2-2v-2H8c-1 0-2-1-2-2v-2c0-1 1-2 2-2h2v-2H8v-2h2V8c0-1 1-2 2-2h2V4c0-1 1-2 2-2z"/>
-                </svg>
+                <img src="../assets/logo/caprae-logo.png" alt="Caprae Capital" class="logo-img">
                 CAPRAE CAPITAL
             </a>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#team">Team</a></li>
                 <li><a href="#careers">Careers</a></li>
+                <li class="mobile-cta-item"><a href="mailto:partners@capraecapital.com">Contact Us →</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <span></span>
@@ -857,28 +966,26 @@
             </div>
         </div>
     </nav>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
 
     <!-- HERO SECTION -->
     <section class="hero" id="about">
         <div class="hero-content">
-            <svg class="goat-badge" viewBox="0 0 100 100" fill="none" stroke="#C5A55A" stroke-width="2">
-                <circle cx="50" cy="50" r="48"/>
-                <path d="M50 20c2 0 4 2 4 4v4h4c2 0 4 2 4 4v4h-4v4h4v4h-4v4h4c2 0 4 2 4 4v4c0 2-2 4-4 4h-4v4c0 2-2 4-4 4s-4-2-4-4v-4h-4v4c0 2-2 4-4 4s-4-2-4-4v-4h-4c-2 0-4-2-4-4v-4c0-2 2-4 4-4h4v-4h-4v-4h4v-4h-4v-4c0-2 2-4 4-4h4v-4c0-2 2-4 4-4z"/>
-            </svg>
-            <h1>Caprae Capital</h1>
+            <img src="../assets/logo/caprae-logo.png" alt="Caprae Capital" class="hero-logo hero-enter" style="--hero-d: 0s;">
+            <h1 class="hero-enter" style="--hero-d: 0.15s;">Caprae Capital</h1>
             <div class="hero-divider"></div>
-            <p class="hero-subtitle">Make Others Great Through Entrepreneurship</p>
-            <p class="hero-description">An experienced group of founders, entrepreneurs, and investors with a proven track record of growing and operating successful businesses.</p>
+            <p class="hero-subtitle hero-enter" style="--hero-d: 0.5s;">Make Others Great Through Entrepreneurship</p>
+            <p class="hero-description hero-enter" style="--hero-d: 0.65s;">An experienced group of founders, entrepreneurs, and investors with a proven track record of growing and operating successful businesses.</p>
         </div>
     </section>
 
     <!-- MISSION & STATS SECTION -->
     <section class="mission-section">
         <div class="mission-container">
-            <div>
+            <div class="fade-in-element slide-left">
                 <h2>Our Mission</h2>
             </div>
-            <div class="mission-text">
+            <div class="mission-text fade-in-element slide-right">
                 <p>We believe in the power of entrepreneurship to create lasting value. By combining deep operational expertise, strategic capital, and a network of world-class advisors, we partner with exceptional founders and operators to build transformational businesses that positively impact their industries and communities.</p>
             </div>
         </div>
@@ -901,163 +1008,171 @@
     </section>
 
     <!-- PORTFOLIO SECTION -->
-    <section class="portfolio-section">
-        <div class="section-header">
+    <section class="portfolio-section" id="portfolio">
+        <div class="section-header fade-in-element">
             <h2>Our Companies</h2>
             <p class="section-subtitle">Proven Deal & Investment Experience</p>
         </div>
         <div class="portfolio-grid">
-            <div class="company-card fade-in-element" style="animation-delay: 0s;">
-                <svg class="company-icon" viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5"><path d="M6 4h12c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M9 9h6M9 13h6M9 17h3"/></svg>
-                <div class="company-name">Clinical-Stage Biopharma</div>
-                <div class="company-description">Advanced therapeutic development and precision medicine innovation</div>
+            <div class="company-card fade-in-element">
+                <img src="../assets/portfolio/kintarra-logo.png" alt="Kintarra" class="company-logo">
+                <div class="company-name">Kintarra</div>
+                <div class="company-description">Innovative IT services provider focused on ESG and AI/cloud technologies</div>
             </div>
-            <div class="company-card fade-in-element" style="animation-delay: 0.1s;">
-                <svg class="company-icon" viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h10M7 17h6"/></svg>
-                <div class="company-name">Coupon Marketplace</div>
-                <div class="company-description">Digital discount and promotional platform connecting consumers and merchants</div>
+            <div class="company-card fade-in-element">
+                <img src="../assets/portfolio/retailmenot-logo.png" alt="RetailMeNot" class="company-logo">
+                <div class="company-name">RetailMeNot</div>
+                <div class="company-description">Digital coupon and discount marketplace connecting consumers with merchant promotions</div>
             </div>
-            <div class="company-card fade-in-element" style="animation-delay: 0.2s;">
-                <svg class="company-icon" viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5"><path d="M3 12h3M6 6h3M6 18h3M12 3v3M12 18v3M21 12h-3M18 6h3M18 18h3"/><circle cx="12" cy="12" r="3"/></svg>
-                <div class="company-name">Plant-Based Fast Casual</div>
-                <div class="company-description">Sustainable restaurant concept with plant-forward culinary innovation</div>
+            <div class="company-card fade-in-element">
+                <img src="../assets/portfolio/veggie-grill-logo.png" alt="Veggie Grill" class="company-logo">
+                <div class="company-name">Veggie Grill</div>
+                <div class="company-description">Plant-based fast casual restaurant chain with innovative culinary offerings</div>
             </div>
-            <div class="company-card fade-in-element" style="animation-delay: 0.3s;">
-                <svg class="company-icon" viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/><polyline points="12 8 12 16 8 12 16 12"/></svg>
-                <div class="company-name">Long-Term Stock Exchange</div>
-                <div class="company-description">Capital markets infrastructure for sustainable, long-term value creation</div>
+            <div class="company-card fade-in-element">
+                <img src="../assets/portfolio/ltse-logo.png" alt="LTSE" class="company-logo">
+                <div class="company-name">LTSE</div>
+                <div class="company-description">Long-Term Stock Exchange - capital markets infrastructure for sustainable value creation</div>
             </div>
-            <div class="company-card fade-in-element" style="animation-delay: 0.4s;">
-                <svg class="company-icon" viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5"><path d="M18 3H6c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/><path d="M8 9h8M8 13h5M8 17h3"/></svg>
-                <div class="company-name">Subscription Generation</div>
-                <div class="company-description">SaaS platform for direct-to-consumer brand growth and retention</div>
+            <div class="company-card fade-in-element">
+                <img src="../assets/portfolio/subgen-logo.png" alt="SubGen" class="company-logo">
+                <div class="company-name">SubGen</div>
+                <div class="company-description">Subscription generation SaaS platform for direct-to-consumer brand growth and retention</div>
             </div>
-            <div class="company-card fade-in-element" style="animation-delay: 0.5s;">
-                <svg class="company-icon" viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5"><path d="M6 9l6-3 6 3M6 15l6-3 6 3"/><path d="M3 12v4c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-4"/></svg>
-                <div class="company-name">Liquid Nitrogen Ice Cream</div>
-                <div class="company-description">Premium frozen dessert franchise with innovative preparation experience</div>
+            <div class="company-card fade-in-element">
+                <img src="../assets/portfolio/creamistry-logo.jpg" alt="Creamistry" class="company-logo">
+                <div class="company-name">Creamistry</div>
+                <div class="company-description">Premium liquid nitrogen ice cream franchise with an innovative preparation experience</div>
             </div>
-            <div class="company-card fade-in-element" style="animation-delay: 0.6s;">
-                <svg class="company-icon" viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5"><path d="M6 5h12c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H6c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2z"/><path d="M9 10h6M9 14h6"/></svg>
-                <div class="company-name">Food Delivery & Takeout</div>
-                <div class="company-description">Logistics network optimizing restaurant distribution and consumer access</div>
+            <div class="company-card fade-in-element">
+                <img src="../assets/portfolio/caviar-logo.png" alt="Caviar" class="company-logo">
+                <div class="company-name">Caviar</div>
+                <div class="company-description">Food delivery and takeout platform optimizing restaurant distribution and consumer access</div>
             </div>
-            <div class="company-card fade-in-element" style="animation-delay: 0.7s;">
-                <svg class="company-icon" viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5"><path d="M4 5h16c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2z"/><line x1="12" y1="5" x2="12" y2="19"/></svg>
-                <div class="company-name">Ergonomic Standing Desks</div>
-                <div class="company-description">Workplace wellness furniture engineered for modern remote and office work</div>
+            <div class="company-card fade-in-element">
+                <img src="../assets/portfolio/standdesk-logo.jpg" alt="StandDesk" class="company-logo">
+                <div class="company-name">StandDesk</div>
+                <div class="company-description">Ergonomic standing desks engineered for modern remote and office work environments</div>
             </div>
-            <div class="company-card fade-in-element" style="animation-delay: 0.8s;">
-                <svg class="company-icon" viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg>
-                <div class="company-name">Managed IT & Cybersecurity</div>
-                <div class="company-description">Enterprise security services and infrastructure management for SMBs and enterprises</div>
+            <div class="company-card fade-in-element">
+                <img src="../assets/portfolio/itsco-logo.png" alt="ITSco" class="company-logo">
+                <div class="company-name">ITSco</div>
+                <div class="company-description">Managed IT services and cybersecurity solutions for SMBs and enterprises</div>
             </div>
-            <div class="company-card fade-in-element" style="animation-delay: 0.9s;">
-                <svg class="company-icon" viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5"><path d="M3 7h18M3 12h18M3 17h18M6 9v8M12 9v8M18 9v8"/></svg>
-                <div class="company-name">B2B Lead Generation</div>
-                <div class="company-description">Data-driven sales development and prospecting intelligence platform</div>
+            <div class="company-card fade-in-element">
+                <img src="../assets/portfolio/saasquatch-leads-logo.png" alt="SaaSquatch Leads" class="company-logo">
+                <div class="company-name">SaaSquatch Leads</div>
+                <div class="company-description">AI-powered B2B lead generation and sales prospecting intelligence platform</div>
             </div>
-            <div class="company-card fade-in-element" style="animation-delay: 1s;">
-                <svg class="company-icon" viewBox="0 0 24 24" fill="none" stroke="#C5A55A" stroke-width="1.5"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
-                <div class="company-name">Mobile IV Therapy & Wellness</div>
-                <div class="company-description">On-demand IV infusion therapy and preventative health clinic network</div>
+            <div class="company-card fade-in-element">
+                <img src="../assets/portfolio/iv-nutrition-logo.png" alt="IV Nutrition" class="company-logo">
+                <div class="company-name">IV Nutrition</div>
+                <div class="company-description">Mobile IV therapy and preventative wellness clinic network</div>
             </div>
         </div>
     </section>
 
     <!-- NEWS SECTION -->
     <section class="news-section">
-        <div class="section-header">
+        <div class="section-header fade-in-element">
             <h2>Latest Insights</h2>
         </div>
         <div class="news-grid">
             <div class="news-card fade-in-element">
-                <div class="news-date">March 15, 2026</div>
-                <div class="news-title">Building Resilient Supply Chains</div>
-                <div class="news-excerpt">Insights from our portfolio companies on operational excellence and supply chain optimization in volatile markets.</div>
-                <a href="#" class="read-more">Read More</a>
+                <div class="news-date">July 2025</div>
+                <div class="news-title">Third Equity Partners and Caprae Capital Partner to Support First-Time Buyers</div>
+                <div class="news-excerpt">Third Equity Partners and Caprae Capital announce a strategic partnership providing guidance and support for first-time small business acquirers in the search fund space.</div>
+                <a href="https://finance.yahoo.com/news/third-equity-partners-caprae-capital-130000653.html" target="_blank" class="read-more">Read More &rarr;</a>
             </div>
             <div class="news-card fade-in-element">
-                <div class="news-date">March 8, 2026</div>
-                <div class="news-title">The Future of Sustainable Investment</div>
-                <div class="news-excerpt">Our perspective on ESG implementation and long-term value creation in modern venture and private equity.</div>
-                <a href="#" class="read-more">Read More</a>
+                <div class="news-date">September 2025</div>
+                <div class="news-title">The Deal Junkie Intervention: Why More CIMs Don't Make You a Better Investor</div>
+                <div class="news-excerpt">Why chasing high-volume deal flow leads to wasted effort. Successful investors focus on fewer, higher-quality deals with conviction rather than quantity.</div>
+                <a href="https://capraecapitalpartners.substack.com/p/the-deal-junkie-intervention-why" target="_blank" class="read-more">Read More &rarr;</a>
             </div>
             <div class="news-card fade-in-element">
-                <div class="news-date">February 28, 2026</div>
-                <div class="news-title">Q1 Market Outlook & Opportunities</div>
-                <div class="news-excerpt">Strategic analysis of emerging sectors and investment thesis alignment with macroeconomic trends.</div>
-                <a href="#" class="read-more">Read More</a>
+                <div class="news-date">November 2025</div>
+                <div class="news-title">Why Most Search Funds Fail</div>
+                <div class="news-excerpt">Examining why search funds struggle with market saturation, unrealistic criteria, and founder fatigue - and how specialization and proprietary sourcing improve outcomes.</div>
+                <a href="https://capraecapitalpartners.substack.com/p/why-most-search-funds-fail" target="_blank" class="read-more">Read More &rarr;</a>
             </div>
         </div>
-        <div class="social-links">
-            <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-            <a href="https://twitter.com" target="_blank">X (Twitter)</a>
+        <div class="social-links fade-in-element">
+            <a href="https://www.linkedin.com/company/caprae-capital" target="_blank">LinkedIn</a>
+            <a href="https://capraecapitalpartners.substack.com/" target="_blank">Substack</a>
         </div>
     </section>
 
     <!-- TEAM SECTION -->
     <section class="team-section" id="team">
         <div class="team-container">
-            <h2>Meet the Team</h2>
-            <p class="section-subtitle" style="margin-top: 12px;">Part of a family office managing 30+ companies</p>
+            <h2 class="fade-in-element">Meet the Team</h2>
+            <p class="section-subtitle fade-in-element" style="margin-top: 12px;">Part of a family office managing 30+ companies</p>
 
             <div style="margin-top: 80px;">
-                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: #1A1A1A; margin-bottom: 60px; letter-spacing: 1px;">Leadership</h3>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: #FFFFFF; margin-bottom: 60px; letter-spacing: 1px;">Leadership</h3>
                 <div class="leadership-grid">
-                    <div class="team-member fade-in-element" style="animation-delay: 0s;">
-                        <div class="member-initials">KH</div>
+                    <div class="team-member fade-in-element">
+                        <img src="../assets/team/kevin-hong.jpg" alt="Kevin Hong" class="member-photo">
                         <div class="member-name">Kevin Hong</div>
-                        <div class="member-title">Managing Partner</div>
-                        <div class="member-bio">Entrepreneur with 10+ years of experience. Former adjunct professor at Chapman University. Scaled startups to $7M and $31M ARR. Featured in CNBC, Forbes, and The New York Times. MBA, University of Chicago.</div>
+                        <div class="member-title">Founder</div>
+                        <div class="member-bio">Serial tech entrepreneur with 10+ years experience. Scaled two startups to $31M and $7M ARR. Raised $8M+ in venture capital. Author of #1 Amazon bestseller "The Outlier Approach." Published in Forbes, Inc. Clinical Adjunct Faculty of Entrepreneurship at Chapman University. MBA, University of Chicago Booth.</div>
                     </div>
-                    <div class="team-member fade-in-element" style="animation-delay: 0.1s;">
-                        <div class="member-initials">HJ</div>
+                    <div class="team-member fade-in-element">
+                        <img src="../assets/team/hereford-johnson.jpg" alt="Hereford Johnson" class="member-photo">
                         <div class="member-name">Hereford Johnson</div>
-                        <div class="member-title">Operating Partner</div>
-                        <div class="member-bio">Operational excellence expert with a track record of building scalable systems and leading cross-functional teams through growth stages and market transitions.</div>
+                        <div class="member-title">Senior Adviser</div>
+                        <div class="member-bio">Founder of Third Equity Partners. Experienced entrepreneur in traditional, self-funded, and independent sponsorship ETA models. Educator and trusted voice in the search fund community. MBA, Northwestern University - Kellogg School of Management.</div>
                     </div>
-                    <div class="team-member fade-in-element" style="animation-delay: 0.2s;">
-                        <div class="member-initials">ZB</div>
+                    <div class="team-member fade-in-element">
+                        <img src="../assets/team/zackary-beckham.jpg" alt="Zackary Beckham" class="member-photo">
                         <div class="member-name">Zackary Beckham</div>
-                        <div class="member-title">Partner / Operator</div>
-                        <div class="member-bio">Investment and operations specialist with expertise in value creation, due diligence, and executing strategic initiatives across portfolio companies.</div>
+                        <div class="member-title">Founder</div>
+                        <div class="member-bio">Chief of Business Development at ITSco - Integrated Technical Services. 12+ years experience in operations and program management. Previously Director of Service Delivery at Destroy Drive. BS in Information Technology and BS in Biology, Arizona State University.</div>
                     </div>
                 </div>
             </div>
 
             <div style="margin-top: 120px;">
-                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: #1A1A1A; margin-bottom: 60px; letter-spacing: 1px;">Advisors & Specialists</h3>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: #FFFFFF; margin-bottom: 60px; letter-spacing: 1px;">Advisors & Specialists</h3>
                 <div class="advisors-grid">
-                    <div class="advisor-card fade-in-element" style="animation-delay: 0s;">
+                    <div class="advisor-card fade-in-element">
+                        <img src="../assets/team/paul-chung.jpg" alt="Paul Chung" class="advisor-photo">
                         <div class="advisor-name">Paul Chung</div>
                         <div class="advisor-role">Tech Strategy Advisor</div>
                     </div>
-                    <div class="advisor-card fade-in-element" style="animation-delay: 0.1s;">
+                    <div class="advisor-card fade-in-element">
+                        <img src="../assets/team/hyon-lee.jpg" alt="Hyon Lee" class="advisor-photo">
                         <div class="advisor-name">Hyon Lee</div>
                         <div class="advisor-role">Tech Strategy Advisor / Investor</div>
                     </div>
-                    <div class="advisor-card fade-in-element" style="animation-delay: 0.2s;">
+                    <div class="advisor-card fade-in-element">
+                        <img src="../assets/team/eric-nehrlich.jpeg" alt="Eric Nehrlich" class="advisor-photo">
                         <div class="advisor-name">Eric Nehrlich</div>
                         <div class="advisor-role">Executive Coach</div>
                     </div>
-                    <div class="advisor-card fade-in-element" style="animation-delay: 0.3s;">
+                    <div class="advisor-card fade-in-element">
+                        <img src="../assets/team/karen-spencer.jpeg" alt="Karen Spencer" class="advisor-photo">
                         <div class="advisor-name">Karen Spencer</div>
                         <div class="advisor-role">Mentor / Advisor</div>
                     </div>
-                    <div class="advisor-card fade-in-element" style="animation-delay: 0.4s;">
+                    <div class="advisor-card fade-in-element">
+                        <img src="../assets/team/james-bacchus.jpg" alt="James Bacchus" class="advisor-photo">
                         <div class="advisor-name">James Bacchus</div>
                         <div class="advisor-role">Legal Counsel</div>
                     </div>
-                    <div class="advisor-card fade-in-element" style="animation-delay: 0.5s;">
+                    <div class="advisor-card fade-in-element">
+                        <img src="../assets/team/felix-odigie.png" alt="Felix I. Odigie" class="advisor-photo">
                         <div class="advisor-name">Felix I. Odigie</div>
                         <div class="advisor-role">Deal Advisor (Wharton MBA)</div>
                     </div>
-                    <div class="advisor-card fade-in-element" style="animation-delay: 0.6s;">
+                    <div class="advisor-card fade-in-element">
+                        <img src="../assets/team/jeff-blacklock.png" alt="Jeff Blacklock" class="advisor-photo">
                         <div class="advisor-name">Jeff Blacklock</div>
-                        <div class="advisor-role">Deal Advisor</div>
+                        <div class="advisor-role">Deal Adviser</div>
                     </div>
-                    <div class="advisor-card fade-in-element" style="animation-delay: 0.7s;">
+                    <div class="advisor-card fade-in-element">
+                        <img src="../assets/team/mike-savino.jpg" alt="Mike Savino" class="advisor-photo">
                         <div class="advisor-name">Mike Savino</div>
                         <div class="advisor-role">Deal Advisor</div>
                     </div>
@@ -1065,16 +1180,31 @@
             </div>
 
             <div style="margin-top: 80px; margin-bottom: 60px;">
-                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: #1A1A1A; margin-bottom: 24px; letter-spacing: 1px;">Associates</h3>
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: #FFFFFF; margin-bottom: 24px; letter-spacing: 1px;">Associates</h3>
                 <div class="associates-row fade-in-element">
                     <div class="associates-title">PE Interns & Developers</div>
                     <div class="associates-list">
-                        <div class="associate">Jamie Zhang</div>
-                        <div class="associate">Nicholas Taylor</div>
-                        <div class="associate">Sachiv Tahil</div>
-                        <div class="associate">Kory Gehring</div>
-                        <div class="associate">Ukant Jadia</div>
-                        <div class="associate">Yash Jagdale</div>
+                        <div class="associate">
+                            <img src="../assets/team/jamie-zhang.jpg" alt="Jamie Zhang" class="associate-photo">
+                            Jamie Zhang
+                        </div>
+                        <div class="associate">
+                            <img src="../assets/team/nicholas-taylor.jpg" alt="Nicholas Taylor" class="associate-photo">
+                            Nicholas Taylor
+                        </div>
+                        <div class="associate">
+                            <img src="../assets/team/sachiv-tahil.jpg" alt="Sachiv Tahil" class="associate-photo">
+                            Sachiv Tahil
+                        </div>
+                        <div class="associate">
+                            <img src="../assets/team/kory-gehring.jpg" alt="Kory Gehring" class="associate-photo">
+                            Kory Gehring
+                        </div>
+                        <div class="associate">
+                            <img src="../assets/team/ukant-jadia.png" alt="Ukant Jadia" class="associate-photo">
+                            Ukant Jadia
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -1084,73 +1214,51 @@
     <!-- CAREERS SECTION -->
     <section class="careers-section" id="careers">
         <div class="careers-container">
-            <h2>Join Our Team</h2>
-            <div class="careers-intro">
+            <h2 class="fade-in-element">Join Our Team</h2>
+            <div class="careers-intro fade-in-element">
                 <p>We're building the next generation of investors and operators. Our internship program provides direct experience in deal sourcing, due diligence, portfolio operations, and strategic planning. Interns work alongside experienced investors and operators, gaining ground-level insight into venture and private equity while developing leadership capabilities for their careers.</p>
             </div>
 
             <div class="positions-list">
-                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: #1A1A1A; margin-bottom: 32px; letter-spacing: 1px;">Open Positions</h3>
-                <div class="position-card fade-in-element" style="animation-delay: 0s;">
+                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: #FFFFFF; margin-bottom: 32px; letter-spacing: 1px;">Open Positions</h3>
+                <div class="position-card fade-in-element">
                     <div class="position-title">Private Equity Intern</div>
-                    <a href="mailto:partners@capraecapital.com" class="apply-link">Apply</a>
+                    <a href="mailto:partners@capraecapital.com" class="apply-link">Apply &rarr;</a>
                 </div>
-                <div class="position-card fade-in-element" style="animation-delay: 0.1s;">
+                <div class="position-card fade-in-element">
                     <div class="position-title">Software Developer Intern</div>
-                    <a href="mailto:partners@capraecapital.com" class="apply-link">Apply</a>
+                    <a href="mailto:partners@capraecapital.com" class="apply-link">Apply &rarr;</a>
                 </div>
-                <div class="position-card fade-in-element" style="animation-delay: 0.2s;">
+                <div class="position-card fade-in-element">
                     <div class="position-title">M&A Analyst Intern</div>
-                    <a href="mailto:partners@capraecapital.com" class="apply-link">Apply</a>
+                    <a href="mailto:partners@capraecapital.com" class="apply-link">Apply &rarr;</a>
                 </div>
-                <div class="position-card fade-in-element" style="animation-delay: 0.3s;">
+                <div class="position-card fade-in-element">
                     <div class="position-title">Operations Intern</div>
-                    <a href="mailto:partners@capraecapital.com" class="apply-link">Apply</a>
-                </div>
-            </div>
-
-            <div style="margin-bottom: 80px;">
-                <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: #1A1A1A; margin-bottom: 60px; letter-spacing: 1px;">What Our Interns Say</h3>
-                <div class="testimonials-grid">
-                    <div class="testimonial fade-in-element" style="animation-delay: 0s;">
-                        <div class="testimonial-text">"This internship transformed my understanding of venture capital and deal operations. The mentorship from experienced operators was invaluable."</div>
-                        <div class="testimonial-author">Sarah Chen</div>
-                        <div class="testimonial-school">Stanford University</div>
-                    </div>
-                    <div class="testimonial fade-in-element" style="animation-delay: 0.1s;">
-                        <div class="testimonial-text">"Working directly on portfolio company challenges gave me real-world experience that you can't get in a classroom. Highly recommend."</div>
-                        <div class="testimonial-author">Marcus Johnson</div>
-                        <div class="testimonial-school">Harvard Business School</div>
-                    </div>
-                    <div class="testimonial fade-in-element" style="animation-delay: 0.2s;">
-                        <div class="testimonial-text">"The team creates an environment where you can take on substantial responsibility and grow as a professional. The network alone is worth it."</div>
-                        <div class="testimonial-author">Priya Patel</div>
-                        <div class="testimonial-school">UC Berkeley</div>
-                    </div>
+                    <a href="mailto:partners@capraecapital.com" class="apply-link">Apply &rarr;</a>
                 </div>
             </div>
 
             <div class="how-to-apply">
                 <div class="apply-steps">
-                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: #1A1A1A; margin-bottom: 0; letter-spacing: 1px;">How to Apply</h3>
+                    <h3 style="font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: #FFFFFF; margin-bottom: 0; letter-spacing: 1px;">How to Apply</h3>
                     <div class="steps-grid">
-                        <div class="step fade-in-element" style="animation-delay: 0s;">
+                        <div class="step fade-in-element">
                             <div class="step-number">1</div>
                             <div class="step-title">Submit Application</div>
                             <div class="step-description">Send your resume, cover letter, and any additional materials to partners@capraecapital.com</div>
                         </div>
-                        <div class="step fade-in-element" style="animation-delay: 0.1s;">
+                        <div class="step fade-in-element">
                             <div class="step-number">2</div>
-                            <div class="step-title">Complete Handbook</div>
-                            <div class="step-description">Review our internship handbook and program requirements to ensure alignment with your goals</div>
+                            <div class="step-title">Review & Screening</div>
+                            <div class="step-description">Our team reviews all applications and reaches out to qualified candidates for initial screening</div>
                         </div>
-                        <div class="step fade-in-element" style="animation-delay: 0.2s;">
+                        <div class="step fade-in-element">
                             <div class="step-number">3</div>
                             <div class="step-title">Interview Process</div>
                             <div class="step-description">Engage in conversations with our team to explore fit and opportunities for collaboration</div>
                         </div>
                     </div>
-                    <p style="text-align: center; margin-top: 60px; font-size: 14px; color: #555555;">Upon completion of the program, interns receive a Certificate of Completion and references from senior partners.</p>
                 </div>
             </div>
         </div>
@@ -1159,67 +1267,186 @@
     <!-- FOOTER -->
     <footer>
         <div class="footer-content">
-            <div class="footer-logo">CAPRAE CAPITAL</div>
+            <div class="footer-logo">
+                <img src="../assets/logo/caprae-logo.png" alt="Caprae Capital" class="footer-logo-img">
+                CAPRAE CAPITAL
+            </div>
             <div class="footer-contact">
                 <a href="mailto:partners@capraecapital.com">partners@capraecapital.com</a>
-                <span class="footer-contact-separator">|</span>
-                <a href="tel:+18186360839">818-636-0839</a>
             </div>
             <div class="footer-social">
-                <a href="https://linkedin.com" target="_blank">LinkedIn</a>
-                <a href="https://twitter.com" target="_blank">X</a>
+                <a href="https://www.linkedin.com/company/caprae-capital" target="_blank">LinkedIn</a>
+                <a href="https://capraecapitalpartners.substack.com/" target="_blank">Substack</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Caprae Capital. All rights reserved.</p>
+            <p>&copy; <span id="copyrightYear">2026</span> Caprae Capital. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Navigation scroll effect
+        // Navigation
         const navbar = document.getElementById('navbar');
         const hamburger = document.getElementById('hamburger');
         const navLinks = document.getElementById('navLinks');
+        const mobileOverlay = document.getElementById('mobileOverlay');
+        const heroContent = document.querySelector('.hero-content');
+        const isDesktop = window.matchMedia('(min-width: 769px)');
+        const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+        const sectionEls = document.querySelectorAll('#about, #portfolio, #team, #careers');
 
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
+        // Mobile menu
+        function closeMobileMenu() {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+            mobileOverlay.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        }
+
+        hamburger.addEventListener('click', () => {
+            if (hamburger.classList.contains('active')) {
+                closeMobileMenu();
             } else {
-                navbar.classList.remove('scrolled');
+                hamburger.classList.add('active');
+                navLinks.classList.add('active');
+                mobileOverlay.classList.add('active');
+                document.body.classList.add('menu-open');
             }
         });
 
-        // Hamburger menu toggle
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navLinks.classList.toggle('active');
-        });
-
-        // Close mobile menu when a link is clicked
         navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navLinks.classList.remove('active');
-            });
+            link.addEventListener('click', closeMobileMenu);
         });
+        mobileOverlay.addEventListener('click', closeMobileMenu);
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeMobileMenu(); });
+        window.addEventListener('resize', () => { if (window.innerWidth > 768) closeMobileMenu(); });
 
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+        // Combined scroll handler (single rAF for performance)
+        let scrollTicking = false;
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
+        window.addEventListener('scroll', () => {
+            if (!scrollTicking) {
+                requestAnimationFrame(onScroll);
+                scrollTicking = true;
+            }
+        }, { passive: true });
+
+        function onScroll() {
+            const scrollY = window.scrollY;
+
+            // Nav shadow + shrink
+            navbar.classList.toggle('scrolled', scrollY > 50);
+
+            // Parallax on hero (desktop only)
+            if (isDesktop.matches && heroContent && scrollY < window.innerHeight) {
+                const progress = scrollY / window.innerHeight;
+                heroContent.style.transform = 'translateY(' + (progress * 50) + 'px)';
+                heroContent.style.opacity = Math.max(1 - progress * 0.7, 0);
+            }
+
+            // Active nav link tracking
+            let current = '';
+            sectionEls.forEach(function(el) {
+                if (el.offsetTop <= scrollY + 200) current = el.id;
+            });
+            navAnchors.forEach(function(a) {
+                a.classList.toggle('active-section', a.getAttribute('href') === '#' + current);
+            });
+
+            scrollTicking = false;
+        }
+
+        // Counter animation for stat numbers
+        function animateCounter(el) {
+            var text = el.textContent.trim();
+            var match = text.match(/^([^\d]*)([\d]+)(.*)$/);
+            if (!match) return;
+
+            var prefix = match[1];
+            var target = parseInt(match[2]);
+            var suffix = match[3];
+            var duration = 1800;
+            var start = performance.now();
+
+            el.textContent = prefix + '0' + suffix;
+
+            function tick(now) {
+                var progress = Math.min((now - start) / duration, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = prefix + Math.floor(eased * target) + suffix;
+                if (progress < 1) requestAnimationFrame(tick);
+            }
+            requestAnimationFrame(tick);
+        }
+
+        var counterObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    setTimeout(function() { animateCounter(entry.target); }, 300);
+                    counterObserver.unobserve(entry.target);
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.5 });
 
-        document.querySelectorAll('.fade-in-element').forEach(element => {
-            observer.observe(element);
+        document.querySelectorAll('.stat-number').forEach(function(el) {
+            counterObserver.observe(el);
         });
+
+        // Scroll reveal with auto-stagger
+        var revealObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var el = entry.target;
+                    var parent = el.parentElement;
+                    var siblings = Array.from(parent.children).filter(function(c) {
+                        return c.classList.contains('fade-in-element');
+                    });
+                    var index = siblings.indexOf(el);
+                    var delay = index > 0 ? index * 0.08 : 0;
+
+                    el.style.transitionDelay = delay + 's';
+
+                    requestAnimationFrame(function() {
+                        el.classList.add('visible');
+                    });
+
+                    // Clean up after transition to restore hover effects
+                    el.addEventListener('transitionend', function handler(e) {
+                        if (e.propertyName === 'opacity') {
+                            el.style.transitionDelay = '';
+                            el.style.willChange = '';
+                            el.classList.remove('fade-in-element', 'slide-left', 'slide-right', 'scale-up', 'visible');
+                            el.removeEventListener('transitionend', handler);
+                        }
+                    });
+
+                    revealObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+
+        document.querySelectorAll('.fade-in-element').forEach(function(el) {
+            revealObserver.observe(el);
+        });
+
+        // Dynamic copyright year
+        document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
+        // Reduced motion: skip all animations
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.querySelectorAll('.hero-enter').forEach(function(el) {
+                el.style.animation = 'none';
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+            });
+            var divider = document.querySelector('.hero-divider');
+            if (divider) { divider.style.animation = 'none'; divider.style.width = '60px'; }
+            document.querySelectorAll('.fade-in-element').forEach(function(el) {
+                el.style.opacity = '1';
+                el.style.transform = 'none';
+                el.classList.remove('fade-in-element');
+            });
+        }
     </script>
 </body>
-    </html>
+</html>
